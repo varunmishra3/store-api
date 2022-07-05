@@ -14,28 +14,26 @@ const getAllProductsStatic = async (req, res) => {
 
 const createProduct = async (req, res) => {
     const productUpload = await Products.create(req.body);
-    console.log(productUpload);
     return res.status(200).json({msg: 'Item created successfully', productUpload})
 }
 
 const deleteProduct = async (req, res) => {
     try{
         const {id: productID} = req.params
-        console.log(req.params);
         const product = await Products.findOneAndDelete({_id: productID})
         if(!product) {
             res.status(404).json({msg: `Item with ID: ${productID} not found`})
         }
         res.status(200).json({success: true})
     } catch(err){
-        console.log(err)
+        
     }
 }
 
 const updateProduct = async (req, res) => {
     try{
         const {id: productID} = req.params
-        console.log(req.params);
+        
         const product = await Products.findOneAndUpdate({_id: productID}, req.body, {
             new: true,
             runValidators: true
@@ -45,7 +43,7 @@ const updateProduct = async (req, res) => {
         }
         res.status(200).json({success: true})
     } catch(err){
-        console.log(err)
+        
     }
 }
 
